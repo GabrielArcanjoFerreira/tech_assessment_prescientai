@@ -34,7 +34,7 @@ The current codebase is Python-first and can run as a CLI. The target operating 
 
 ## 3) Proposed Architecture Diagram
 
-### Diagram Placeholder (Image)
+### Diagram
 
 <!-- Replace with actual exported image -->
 ![Proposed Databricks Architecture Diagram](./imgs/architecture_diagram.png)
@@ -111,7 +111,7 @@ The current codebase is Python-first and can run as a CLI. The target operating 
 
 ## 6) Database ERD (From `schema.sql`)
 
-### ERD Placeholder (Image)
+### ERD
 
 <!-- Replace with actual exported image -->
 ![Database ERD](./imgs/erd_diagram.png)

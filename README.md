@@ -21,7 +21,7 @@ Python ETL pipeline to extract OpenWeather forecasts (4-day hourly + 30-day dail
 - `src/weather_etl/sql/schema.sql`: DDL for `weather.hourly_forecast` and `weather.daily_forecast`.
 - `src/weather_etl/__main__.py`: CLI entrypoint.
 
-For a full architecture deep dive (including Databricks Asset Bundles/Jobs plan and ERD), see [Solution Architecture Documentation](docs/solution-architecture.md).
+For a full architecture deep dive (including Databricks Asset Bundles/Jobs plan and ERD), see [Solution Architecture Documentation](docs/architecture-diagram.md).
 
 ## Quick Start
 
