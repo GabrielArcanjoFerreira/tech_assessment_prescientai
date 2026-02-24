@@ -1,4 +1,4 @@
-# Weather ETL for El Colorado (OpenWeather -> PostgreSQL)
+# Weather ETL Prescient AI
 
 Python ETL pipeline to extract OpenWeather forecasts (4-day hourly + 30-day daily), normalize payloads, and load them into PostgreSQL with idempotent upserts.
 
