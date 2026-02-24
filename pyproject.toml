@@ -1,7 +1,7 @@
 [project]
 name = "weather_etl"
 version = "0.1.0"
-description = "OpenWeather ETL pipeline for El Colorado tourism planning"
+description = "OpenWeather ETL pipeline for weather forecasting"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

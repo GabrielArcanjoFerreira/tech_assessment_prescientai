@@ -25,7 +25,6 @@ clean-test:
 	rm -f .coverage*
 	rm -fr .pytest_cache
 	rm -fr .ruff_cache
-	rm -fr .mypy_cache
 
 test:
 	@echo -----------------------------------------------------------------
@@ -41,6 +40,9 @@ dist: clean ## builds source and wheel package
 
 install: clean
 	uv pip install .
+
+release:
+	make dist install
 
 install-dev-local:
 	uv pip install . --group dev

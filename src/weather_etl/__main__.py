@@ -11,8 +11,8 @@ import typer
 from weather_etl.common.config import Settings
 from weather_etl.common.logger import configure_console_logging
 from weather_etl.ingestion.openweather_client import OpenWeatherClient
-from weather_etl.ingestion.ops.normalize import normalize_daily_30d, normalize_hourly_4d
-from weather_etl.ingestion.ops.postgres_loader import PostgresLoader
+from weather_etl.ingestion.ops.load.postgres_loader import PostgresLoader
+from weather_etl.ingestion.ops.transform.normalize import normalize_daily_30d, normalize_hourly_4d
 
 app = typer.Typer()
 logger = logging.getLogger("weather_etl")

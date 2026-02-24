@@ -36,6 +36,9 @@ CREATE TABLE IF NOT EXISTS weather.hourly_forecast (
 CREATE INDEX IF NOT EXISTS idx_hourly_forecast_at
     ON weather.hourly_forecast (forecast_at_utc);
 
+CREATE INDEX IF NOT EXISTS idx_hourly_country_code
+    ON weather.hourly_forecast (country_code);
+
 CREATE TABLE IF NOT EXISTS weather.daily_forecast (
     id BIGSERIAL PRIMARY KEY,
     location_name TEXT NOT NULL,
@@ -73,3 +76,6 @@ CREATE TABLE IF NOT EXISTS weather.daily_forecast (
 
 CREATE INDEX IF NOT EXISTS idx_daily_forecast_date
     ON weather.daily_forecast (forecast_date);
+
+CREATE INDEX IF NOT EXISTS idx_daily_country_code
+    ON weather.daily_forecast (country_code);

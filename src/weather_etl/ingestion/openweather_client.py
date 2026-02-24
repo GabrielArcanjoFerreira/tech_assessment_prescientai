@@ -54,10 +54,7 @@ class OpenWeatherClient:
                         sleep_s = float(retry_after)
                     else:
                         sleep_s = wait_s
-                    logger.warning(
-                        "Rate limit reached. Sleeping %.2fs before retry.",
-                        sleep_s,
-                    )
+                    logger.warning(f"Rate limit reached. Sleeping {sleep_s:.2f}s before retry.")
                     time.sleep(min(sleep_s, self.backoff_max_s))
                     if attempt <= self.max_retries:
                         wait_s = min(wait_s * 2, self.backoff_max_s)
@@ -73,10 +70,7 @@ class OpenWeatherClient:
                 if attempt > self.max_retries:
                     raise RuntimeError(f"API request failed after {attempt} attempts") from exc
                 logger.warning(
-                    "API request failure on attempt %s/%s: %s",
-                    attempt,
-                    self.max_retries,
-                    exc,
+                    f"API request failure on attempt {attempt}/{self.max_retries}: {exc}"
                 )
                 time.sleep(wait_s)
                 wait_s = min(wait_s * 2, self.backoff_max_s)

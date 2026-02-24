@@ -1,4 +1,4 @@
-# Weather ETL for El Colorado
+# Weather ETL for El Colorado (OpenWeather -> PostgreSQL)
 
 Python ETL pipeline to extract OpenWeather forecasts (4-day hourly + 30-day daily), normalize payloads, and load them into PostgreSQL with idempotent upserts.
 
@@ -8,7 +8,6 @@ Python ETL pipeline to extract OpenWeather forecasts (4-day hourly + 30-day dail
 - Resilient HTTP client with timeout, exponential retry, `429` handling, and local rate limiting.
 - Normalization into typed records (`dataclass`) before loading.
 - Schema/table bootstrap and upserts with `ON CONFLICT`.
-- Strict typing with `mypy` on `src`.
 
 ## Architecture (Current Paths)
 
@@ -16,11 +15,13 @@ Python ETL pipeline to extract OpenWeather forecasts (4-day hourly + 30-day dail
 - `src/weather_etl/common/logger.py`: console logging setup.
 - `src/weather_etl/common/rate_limit.py`: simple minimum-interval rate limiter.
 - `src/weather_etl/ingestion/openweather_client.py`: OpenWeather Pro client.
-- `src/weather_etl/ingestion/ops/normalize.py`: raw payload transformation into typed records.
-- `src/weather_etl/ingestion/ops/postgres_loader.py`: schema initialization and PostgreSQL upserts.
+- `src/weather_etl/ingestion/ops/transform/normalize.py`: raw payload transformation into typed records.
+- `src/weather_etl/ingestion/ops/load/postgres_loader.py`: schema initialization and PostgreSQL upserts.
 - `src/weather_etl/ingestion/models/types.py`: typed contracts (`HourlyForecastRecord`, `DailyForecastRecord`).
 - `src/weather_etl/sql/schema.sql`: DDL for `weather.hourly_forecast` and `weather.daily_forecast`.
 - `src/weather_etl/__main__.py`: CLI entrypoint.
+
+For a full architecture deep dive (including Databricks Asset Bundles/Jobs plan and ERD), see [Solution Architecture Documentation](docs/solution-architecture.md).
 
 ## Quick Start
 
@@ -33,14 +34,12 @@ Python ETL pipeline to extract OpenWeather forecasts (4-day hourly + 30-day dail
    - `cp .env.example .env`
    - Set `OPENWEATHER_API_KEY`
    - Set `WEATHER_DB_DSN` with valid PostgreSQL user/password
-4. (Optional) Enable local hooks:
-   - `pre-commit install`
-5. Run ETL commands:
+4. Run ETL commands:
    - Hourly (4-day forecast): `weather-etl run-hourly`
    - Daily (30-day forecast): `weather-etl run-daily`
-6. Run tests:
+5. Run tests:
    - `make test`
-7. Build distribution artifacts:
+6. Build distribution artifacts:
    - `make dist`
 
 Important: do not run plain `make` unless you want cleanup only, because the default Make target is `clean`.
@@ -76,7 +75,6 @@ Template is available in `.env.example`:
 - Full local checks via hooks: `pre-commit run -a`
 - Run tests via Makefile: `make test`
 - Equivalent direct test command: `uv run pytest -q --cov=src/weather_etl --cov-report=term-missing`
-- Optional direct static checks (outside Makefile): `uv run ruff check . --fix`, `uv run ruff format .`, `uv run mypy src`
 
 ## Data Model (PostgreSQL)
 
@@ -110,6 +108,5 @@ Full DDL is in `src/weather_etl/sql/schema.sql`.
 - Psycopg 3: https://www.psycopg.org/psycopg3/docs/
 - Typer: https://typer.tiangolo.com/
 - Ruff: https://docs.astral.sh/ruff/
-- Mypy: https://mypy.readthedocs.io/en/stable/
 - pre-commit: https://pre-commit.com/
 - Python packaging: https://packaging.python.org/en/latest/tutorials/packaging-projects/
