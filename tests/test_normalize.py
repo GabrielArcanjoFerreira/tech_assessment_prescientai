@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from weather_etl.transform.normalize import normalize_daily_30d, normalize_hourly_4d
+from weather_etl.ingestion.ops.transform.normalize import normalize_daily_30d, normalize_hourly_4d
 
 
 def test_normalize_hourly_4d_minimal_payload() -> None:
